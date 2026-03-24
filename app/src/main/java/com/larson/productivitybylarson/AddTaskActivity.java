@@ -52,7 +52,7 @@ public class AddTaskActivity extends AppCompatActivity {
     private TextView addImageHint;
     private Slider sliderUrgency, sliderImportance, sliderDesire, sliderCreative;
     private TextView urgencyValueText, importanceValueText, desireValueText, creativeValueText;
-    private SwitchMaterial switchDeadline;
+    private SwitchMaterial switchDeadline, switchPersistent;
     private LinearLayout deadlineSection;
     private TextView deadlinePreview;
     private LinearLayout wellbeingEncouragement;
@@ -123,6 +123,7 @@ public class AddTaskActivity extends AppCompatActivity {
         desireValueText = findViewById(R.id.desireValueText);
         creativeValueText = findViewById(R.id.creativeValueText);
         switchDeadline = findViewById(R.id.switchDeadline);
+        switchPersistent = findViewById(R.id.switchPersistent);
         deadlineSection = findViewById(R.id.deadlineSection);
         deadlinePreview = findViewById(R.id.deadlinePreview);
         wellbeingEncouragement = findViewById(R.id.wellbeingEncouragement);
@@ -297,6 +298,7 @@ public class AddTaskActivity extends AppCompatActivity {
         task.setImportance((int) sliderImportance.getValue());
         task.setDesire((int) sliderDesire.getValue());
         task.setCreative((int) sliderCreative.getValue());
+        task.setPersistent(switchPersistent.isChecked());
 
         if (switchDeadline.isChecked() && dateSet) {
             long deadlineMillis = deadlineCalendar.getTimeInMillis();

@@ -28,10 +28,12 @@ public class Task {
 
     private long createdAtMillis;
     private boolean completed;
+    private boolean persistent;
 
     public Task() {
         this.createdAtMillis = System.currentTimeMillis();
         this.completed = false;
+        this.persistent = false;
         this.categoryColor = "#4CAF50";
     }
 
@@ -144,5 +146,13 @@ public class Task {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public boolean isPersistent() {
+        return persistent;
+    }
+
+    public void setPersistent(boolean persistent) {
+        this.persistent = persistent;
     }
 }

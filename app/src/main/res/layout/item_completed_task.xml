@@ -11,48 +11,189 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="center_vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <View
-            android:id="@+id/colorDot"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:background="@drawable/bg_color_dot_small" />
-
+        <!-- Top row: color dot, title, score, delete -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="12dp">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <View
+                android:id="@+id/colorDot"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/bg_color_dot_small" />
 
             <TextView
                 android:id="@+id/completedTaskTitle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
                 android:text="Task Title"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@color/text_primary" />
-
-            <TextView
-                android:id="@+id/completedTaskDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Description"
-                android:textSize="13sp"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/text_primary"
                 android:maxLines="2"
                 android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/completedScoreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score: 50"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_color"
+                android:layout_marginEnd="8dp" />
+
+            <ImageButton
+                android:id="@+id/btnDeleteTask"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_close"
+                app:tint="@color/text_hint"
+                android:contentDescription="Delete task" />
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_check"
-            app:tint="@color/swipe_right_color"
-            android:contentDescription="Completed" />
+        <!-- Description -->
+        <TextView
+            android:id="@+id/completedTaskDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="24dp"
+            android:text="Description"
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+        <!-- Date -->
+        <TextView
+            android:id="@+id/completedDateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="24dp"
+            android:text="Created: Jan 01, 2026"
+            android:textSize="11sp"
+            android:textColor="@color/text_hint" />
+
+        <!-- Compact attribute bars -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:orientation="vertical">
+
+            <!-- Urgency -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="2dp">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Urgency"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_hint" />
+
+                <ProgressBar
+                    android:id="@+id/completedUrgencyBar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="6dp"
+                    android:layout_weight="1"
+                    android:max="10"
+                    android:progress="5"
+                    android:progressDrawable="@drawable/progress_urgency" />
+            </LinearLayout>
+
+            <!-- Importance -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="2dp">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Importance"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_hint" />
+
+                <ProgressBar
+                    android:id="@+id/completedImportanceBar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="6dp"
+                    android:layout_weight="1"
+                    android:max="10"
+                    android:progress="5"
+                    android:progressDrawable="@drawable/progress_importance" />
+            </LinearLayout>
+
+            <!-- Desire -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="2dp">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Desire"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_hint" />
+
+                <ProgressBar
+                    android:id="@+id/completedDesireBar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="6dp"
+                    android:layout_weight="1"
+                    android:max="10"
+                    android:progress="5"
+                    android:progressDrawable="@drawable/progress_desire" />
+            </LinearLayout>
+
+            <!-- Creative -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Creative"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_hint" />
+
+                <ProgressBar
+                    android:id="@+id/completedCreativeBar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="6dp"
+                    android:layout_weight="1"
+                    android:max="10"
+                    android:progress="5"
+                    android:progressDrawable="@drawable/progress_creative" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

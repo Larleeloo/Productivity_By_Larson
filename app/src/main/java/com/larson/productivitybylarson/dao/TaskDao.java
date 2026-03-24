@@ -45,4 +45,12 @@ public interface TaskDao {
 
     @Query("SELECT COUNT(*) FROM tasks WHERE completed = 0")
     LiveData<Integer> getActiveTaskCount();
+
+    // Count of non-persistent tasks that are completed
+    @Query("SELECT COUNT(*) FROM tasks WHERE completed = 1 AND persistent = 0")
+    LiveData<Integer> getCompletedNonPersistentCount();
+
+    // Count of all non-persistent tasks
+    @Query("SELECT COUNT(*) FROM tasks WHERE persistent = 0")
+    LiveData<Integer> getTotalNonPersistentCount();
 }
