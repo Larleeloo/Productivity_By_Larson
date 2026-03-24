@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Productivity_by_Larson</string>
+    <string name="app_name">Productivity by Larson</string>
+    <string name="wellbeing_hint">Add creative tasks without deadlines to boost your wellbeing!</string>
+    <string name="wellbeing_encouragement">Great choice! Tasks with high desire and creativity scores (without deadlines) are proven to improve your wellbeing. Keep adding things you love to do!</string>
 </resources>

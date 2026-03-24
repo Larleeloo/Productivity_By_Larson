@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
+
+    <!-- Top bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/app_name"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_color" />
+
+        <TextView
+            android:id="@+id/taskCountText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 tasks"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary" />
+    </LinearLayout>
+
+    <!-- Wellbeing encouragement banner -->
+    <LinearLayout
+        android:id="@+id/wellbeingBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_wellbeing_banner"
+        android:padding="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/wellbeing_hint"
+            android:textSize="13sp"
+            android:textColor="@color/white" />
+
+        <ImageButton
+            android:id="@+id/dismissBanner"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            android:contentDescription="Dismiss"
+            app:tint="@color/white" />
+    </LinearLayout>
+
+    <!-- Swipe instructions -->
+    <LinearLayout
+        android:id="@+id/swipeHints"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="4dp"
+        app:layout_constraintTop_toBottomOf="@id/wellbeingBanner">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            android:textSize="12sp"
+            android:textColor="@color/swipe_left_color"
+            android:drawableStart="@drawable/ic_swipe_left"
+            android:drawablePadding="4dp" />
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="1dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do it!"
+            android:textSize="12sp"
+            android:textColor="@color/swipe_right_color"
+            android:drawableEnd="@drawable/ic_swipe_right"
+            android:drawablePadding="4dp" />
+    </LinearLayout>
+
+    <!-- Card stack container -->
+    <FrameLayout
+        android:id="@+id/cardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@id/swipeHints"
+        app:layout_constraintBottom_toTopOf="@id/bottomButtons"
+        android:clipChildren="false" />
+
+    <!-- Empty state -->
+    <LinearLayout
+        android:id="@+id/emptyState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/cardContainer"
+        app:layout_constraintBottom_toBottomOf="@id/cardContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_empty_tasks"
+            android:alpha="0.5"
+            android:contentDescription="No tasks" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="No tasks yet!"
+            android:textSize="20sp"
+            android:textColor="@color/text_secondary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Tap + to add your first task"
+            android:textSize="14sp"
+            android:textColor="@color/text_hint" />
+    </LinearLayout>
+
+    <!-- Bottom action buttons -->
+    <LinearLayout
+        android:id="@+id/bottomButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Skip button -->
+        <ImageButton
+            android:id="@+id/btnSkip"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_circle_button"
+            android:backgroundTint="@color/swipe_left_color"
+            android:src="@drawable/ic_close"
+            android:padding="16dp"
+            app:tint="@color/white"
+            android:contentDescription="Skip task" />
+
+        <View
+            android:layout_width="24dp"
+            android:layout_height="1dp" />
+
+        <!-- Completed tasks button -->
+        <ImageButton
+            android:id="@+id/btnCompleted"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_circle_button"
+            android:backgroundTint="@color/text_secondary"
+            android:src="@drawable/ic_completed"
+            android:padding="12dp"
+            app:tint="@color/white"
+            android:contentDescription="View completed tasks" />
+
+        <View
+            android:layout_width="24dp"
+            android:layout_height="1dp" />
+
+        <!-- Add task button -->
+        <ImageButton
+            android:id="@+id/btnAddTask"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/bg_circle_button"
+            android:backgroundTint="@color/primary_color"
+            android:src="@drawable/ic_add"
+            android:padding="16dp"
+            app:tint="@color/white"
+            android:contentDescription="Add new task" />
+
+        <View
+            android:layout_width="24dp"
+            android:layout_height="1dp" />
+
+        <!-- Do it button -->
+        <ImageButton
+            android:id="@+id/btnDoIt"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_circle_button"
+            android:backgroundTint="@color/swipe_right_color"
+            android:src="@drawable/ic_check"
+            android:padding="16dp"
+            app:tint="@color/white"
+            android:contentDescription="Do this task" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
