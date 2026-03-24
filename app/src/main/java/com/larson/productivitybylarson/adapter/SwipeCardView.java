@@ -139,6 +139,12 @@ public class SwipeCardView {
             deadline.setVisibility(View.GONE);
         }
 
+        // Persistent badge
+        TextView persistentBadge = view.findViewById(R.id.persistentBadge);
+        if (task.isPersistent()) {
+            persistentBadge.setVisibility(View.VISIBLE);
+        }
+
         // Priority badge
         TextView priorityBadge = view.findViewById(R.id.priorityBadge);
         int score = (int) PriorityCalculator.calculatePriorityScore(task);

@@ -65,6 +65,25 @@
                 android:rotation="15"
                 android:visibility="gone" />
 
+            <!-- Persistent badge -->
+            <TextView
+                android:id="@+id/persistentBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
+                android:layout_margin="12dp"
+                android:background="@drawable/bg_priority_badge"
+                android:backgroundTint="#FF9800"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="PERSISTENT"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <!-- Priority badge -->
             <TextView
                 android:id="@+id/priorityBadge"

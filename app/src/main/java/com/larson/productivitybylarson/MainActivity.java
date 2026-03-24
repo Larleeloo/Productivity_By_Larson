@@ -43,7 +43,10 @@ public class MainActivity extends AppCompatActivity implements SwipeCardView.Swi
     private FrameLayout cardContainer;
     private LinearLayout emptyState;
     private LinearLayout wellbeingBanner;
+    private LinearLayout progressSection;
     private TextView taskCountText;
+    private TextView progressText;
+    private android.widget.ProgressBar overallProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +63,10 @@ public class MainActivity extends AppCompatActivity implements SwipeCardView.Swi
         cardContainer = findViewById(R.id.cardContainer);
         emptyState = findViewById(R.id.emptyState);
         wellbeingBanner = findViewById(R.id.wellbeingBanner);
+        progressSection = findViewById(R.id.progressSection);
         taskCountText = findViewById(R.id.taskCountText);
+        progressText = findViewById(R.id.progressText);
+        overallProgressBar = findViewById(R.id.overallProgressBar);
 
         // Initialize swipe card view
         swipeCardView = new SwipeCardView(this, cardContainer, this);
@@ -87,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements SwipeCardView.Swi
         taskDao.getActiveTaskCount().observe(this, count -> {
             taskCountText.setText(count + " task" + (count != 1 ? "s" : ""));
         });
+
+        // Observe progress for non-persistent tasks
+        observeProgress();
 
         // Schedule periodic urgency updates
         scheduleUrgencyUpdates();
@@ -140,8 +149,13 @@ public class MainActivity extends AppCompatActivity implements SwipeCardView.Swi
 
     @Override
     public void onSwipeRight(Task task) {
-        // User wants to do this task - show timer dialog
-        showTimerDialog(task);
+        if (task.isPersistent()) {
+            // Persistent tasks: show timer but don't mark as completed
+            showTimerDialog(task);
+        } else {
+            // Normal tasks: show timer and mark as completed
+            showTimerDialog(task);
+        }
     }
 
     @Override
@@ -190,14 +204,45 @@ public class MainActivity extends AppCompatActivity implements SwipeCardView.Swi
     }
 
     private void markTaskInProgress(Task task) {
-        Toast.makeText(this, "Working on: " + task.getTitle(), Toast.LENGTH_SHORT).show();
-        // Mark as completed since user chose to do it
-        executor.execute(() -> {
-            task.setCompleted(true);
-            taskDao.update(task);
-            // Cancel any deadline alarms for this task
-            runOnUiThread(() -> NotificationHelper.cancelDeadlineAlarms(this, task.getId()));
+        if (task.isPersistent()) {
+            // Persistent tasks: never mark as completed, they just cycle back
+            Toast.makeText(this, "Working on: " + task.getTitle() + " (persistent)", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Working on: " + task.getTitle(), Toast.LENGTH_SHORT).show();
+            // Mark as completed since user chose to do it
+            executor.execute(() -> {
+                task.setCompleted(true);
+                taskDao.update(task);
+                // Cancel any deadline alarms for this task
+                runOnUiThread(() -> NotificationHelper.cancelDeadlineAlarms(this, task.getId()));
+            });
+        }
+    }
+
+    private void observeProgress() {
+        // Track completed and total counts for non-persistent tasks
+        final int[] counts = new int[2]; // [completed, total]
+
+        taskDao.getCompletedNonPersistentCount().observe(this, completed -> {
+            counts[0] = completed != null ? completed : 0;
+            updateProgressBar(counts[0], counts[1]);
         });
+
+        taskDao.getTotalNonPersistentCount().observe(this, total -> {
+            counts[1] = total != null ? total : 0;
+            updateProgressBar(counts[0], counts[1]);
+        });
+    }
+
+    private void updateProgressBar(int completed, int total) {
+        if (total > 0) {
+            progressSection.setVisibility(View.VISIBLE);
+            int percent = (int) ((completed * 100.0) / total);
+            overallProgressBar.setProgress(percent);
+            progressText.setText(completed + " / " + total + " completed");
+        } else {
+            progressSection.setVisibility(View.GONE);
+        }
     }
 
     private void scheduleUrgencyUpdates() {
