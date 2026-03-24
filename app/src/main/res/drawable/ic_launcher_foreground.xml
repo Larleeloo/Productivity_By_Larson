@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Checkmark icon for a productivity app -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M43.2,65.4L32.4,54.6c-1.2,-1.2 -1.2,-3.0 0,-4.2 1.2,-1.2 3.0,-1.2 4.2,0L45.3,59.1 71.4,33.0c1.2,-1.2 3.0,-1.2 4.2,0 1.2,1.2 1.2,3.0 0,4.2L47.4,65.4c-1.2,1.2 -3.0,1.2 -4.2,0z" />
+</vector>
